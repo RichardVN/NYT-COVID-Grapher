@@ -69,6 +69,7 @@ def get_NYT_COVID_data(url: str, state=None):
 def create_histogram(x_labels, y_labels, y_values, title='', outfname='graph.svg', config=None, style=None):
     """
 
+    :param outfname:
     :param title:
     :param x_labels:
     :param y_labels: Tuple(str)
