@@ -1,16 +1,23 @@
+""" Helper functions to make retrieve COVID-19 Data and to create PyGal Histograms """
+
 import requests
 import csv
 from contextlib import closing
+
 import pygal
+
 from graph_settings import GraphSettings
 
 
-def get_NYT_COVID_data(url: str, state=None):
-    """
-    API call to New York Times github, retrieves COVID-19 data
-    :param url: str
-    :param state: str specifies to retrieve counties data from single state
-    :return: (last_updated:str, locations_list: List[str], locations_cases: List[int], locations_deaths: List[int])
+def get_NYT_COVID_data(url, state=None):
+    """API call to New York Times github using url.  Retrieves latest COVID data in U.S.
+
+    :param url: the url needed to make API call to retrieve COVID data from gitihub repo
+    :type url: str
+    :param state: if provided, limits the retrieval of data by counties to the specified State (default is None)
+    :type state: str
+    :return: tuple of last update date, list of locations and corresponding lists of COVID cases and deaths
+    :rtype: tuple(str, list[str], list[int], list[str], list[int], list[int])
     """
     response = requests.get(url)
     if response.status_code != 200:
@@ -45,38 +52,54 @@ def get_NYT_COVID_data(url: str, state=None):
                 locations_data.append(location_dictionary)
 
         if locations_data:
-            locations_data = sorted(locations_data, key=lambda location: location.get('cases', 0), reverse=True)
+
             print(f"successful retrieval of data covid by {location_type}")
             print('\t', locations_data[0:4], '...')
 
-            # fill data lists
-            locations_list, locations_cases, locations_deaths = [], [], []
+            # fill data lists, sorted from highest cases to lowest
+            locations_data = sorted(locations_data, key=lambda location: location.get('cases', 0), reverse=True)
+            locations_list_by_cases, locations_cases = [], []
             for location_dic in locations_data:
                 # load states/counties
-                locations_list.append(location_dic[location_type])
+                locations_list_by_cases.append(location_dic[location_type])
                 # populate cases
                 locations_cases.append(location_dic['cases'])
-                # populate deaths
+
+            # fill data lists, sorted from highest deaths to lowest
+            locations_data = sorted(locations_data, key=lambda location: location.get('deaths', 0), reverse=True)
+            locations_list_by_deaths, locations_deaths = [], []
+            for location_dic in locations_data:
+                # load states/counties
+                locations_list_by_deaths.append(location_dic[location_type])
+                # populate cases
                 locations_deaths.append(location_dic['deaths'])
 
             last_updated = locations_data[0]['date']
 
-            return last_updated, locations_list, locations_cases, locations_deaths
+            return last_updated, locations_list_by_cases, locations_cases, locations_list_by_deaths, locations_deaths
         else:
             print('Error in retrieving data')
 
 
-def create_histogram(x_labels, y_labels, y_values, title='', outfname='graph.svg', config=None, style=None):
-    """
+def create_histogram(x_labels, y_label, y_values, title='', outfname='graph.svg', config=None, style=None):
+    """ Uses PyGal to create histogram from lists of labels and values.  Outputs .svg file
 
-    :param outfname:
-    :param title:
-    :param x_labels:
-    :param y_labels: Tuple(str)
-    :param y_values: Tuple(List[int])
-    :param config:
-    :param style:
-    :return: output .svg file
+    :param x_labels: A list of strings to label the x axis
+    :type x_labels: list
+    :param y_label: label the type of value plotted.
+    :type y_label: str
+    :param y_values: list contains values corresponding to a y_label
+    :type y_values: list
+    :param title: The title of the chart
+    :type title: str
+    :param outfname: name of the file that the graph will be saved as (preferably .svg)
+    :type outfname: str
+    :param config: pygal Config class for graph layout settings (default is None)
+    :type config: pygal.Config()
+    :param style: pygal Style class for custom visuals (default is None)
+    :type style: pygal.style.Style
+    :return: None
+    :rtype: None
     """
     if config is None or style is None:
         default_settings = GraphSettings()
@@ -90,12 +113,6 @@ def create_histogram(x_labels, y_labels, y_values, title='', outfname='graph.svg
     graph = pygal.Bar(config=config, style=style)
     graph.x_labels = x_labels
     # add y values
-    if len(y_labels) == len(y_values):
-        for label, value_list in zip(y_labels, y_values):
-            graph.add(label, value_list)
-        graph.render_to_file(outfname)
-        print('Created histogram:', outfname)
-    else:
-        print("arguments must be in tuples or lists")
-
-
+    graph.add(y_label, y_values)
+    graph.render_to_file(outfname)
+    print('Created histogram:', outfname)
