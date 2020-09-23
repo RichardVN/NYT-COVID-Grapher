@@ -4,7 +4,7 @@ import pygal
 class GraphSettings():
     def __init__(self):
         self.config = pygal.Config(
-            show_legend=True,
+            show_legend=False,
             x_label_rotation=45,
             title=f"Untitled"
         )
