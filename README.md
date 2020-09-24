@@ -10,5 +10,6 @@ NY_Times_Covid_Data.py
 - Outputs graphs in .svg file format, which can subsequently be viewed via browser
 
 Running the Program (Python 3):
-- Navigate to directory containing NY_Times_Covid_Data.py and other modules included in this repo
-- Run the program using the terminal command: python3 NY_Times_Covid_Data.py
+1. Clone this repository
+2. Navigate to directory containing NY_Times_Covid_Data.py and other modules included in this repo
+3. Run the program using the terminal command: python3 NY_Times_Covid_Data.py
