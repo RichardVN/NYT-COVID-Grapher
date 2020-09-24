@@ -52,9 +52,10 @@ def get_NYT_COVID_data(url, state=None):
                 locations_data.append(location_dictionary)
 
         if locations_data:
-
-            print(f"successful retrieval of data covid by {location_type}")
-            print('\t', locations_data[0:4], '...')
+            if state:
+                print(f"\tSuccessful retrieval of COVID-19 data by {location_type} for {state.title()}")
+            else:
+                print(f"\tSuccessful retrieval of COVID-19 data by {location_type}")
 
             # fill data lists, sorted from highest cases to lowest
             locations_data = sorted(locations_data, key=lambda location: location.get('cases', 0), reverse=True)
@@ -115,4 +116,4 @@ def create_histogram(x_labels, y_label, y_values, title='', outfname='graph.svg'
     # add y values
     graph.add(y_label, y_values)
     graph.render_to_file(outfname)
-    print('Created histogram:', outfname)
+    print('\tCreated histogram:', outfname)
