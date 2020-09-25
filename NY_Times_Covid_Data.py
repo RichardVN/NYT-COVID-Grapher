@@ -8,6 +8,7 @@ from helper_functions import get_NYT_COVID_data, graphs_options_menu, get_state_
 
 from text_menu import num_menu
 
+print(__file__)
 options_menu = (
     'COVID-19 data across all U.S. states',
     'COVID-19 data for counties in a single state',
