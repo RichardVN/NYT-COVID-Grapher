@@ -211,7 +211,6 @@ def create_histogram(data_dict, state=None):
 def svg_cleanup():
     # Store path of directory containing file
     file_directory = os.path.dirname(__file__)
-    print('current working directory', file_directory)
 
     for file in os.listdir(file_directory):
         if file.endswith('.svg'):
