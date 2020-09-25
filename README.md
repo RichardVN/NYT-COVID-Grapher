@@ -11,5 +11,6 @@ NY_Times_Covid_Data.py
 
 Running the Program (Python 3):
 1. Clone this repository
-2. Navigate to directory containing NY_Times_Covid_Data.py and other modules included in this repo
-3. Run the program using the terminal command: python3 NY_Times_Covid_Data.py
+2. Navigate to project directory using terminal (or other CLI)
+3. Install necessary python modules (if needed) by using terminal command: pip3 install -r requirements.txt
+4. Run the program using the terminal command: python3 NY_Times_Covid_Data.py
