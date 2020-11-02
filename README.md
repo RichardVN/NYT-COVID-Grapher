@@ -11,7 +11,7 @@ https://github.com/nytimes/covid-19-data
 
 ## Installation
 ```
-$ git clone https://github.com/RichardVN/New-York-Times-COVID-Data-Visualization.git
+$ git clone https://github.com/RichardVN/NYT-COVID-Grapher.git
 $ cd NY_Times_Covid
 $ python3 -m venv myenv
 $ source myenv/bin/activate
