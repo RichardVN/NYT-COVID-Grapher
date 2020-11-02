@@ -4,13 +4,17 @@ https://github.com/nytimes/covid-19-data
 
 (Any and all scripts are for non-commercial use only. See LICENSE)
 
-NY_Times_Covid_Data.py
+## Features
 - Retrieves the latest COVID-19 statistics (by states or counties in U.S.) from The New York Times
 - Data Visualization of cases / deaths via PyGal 
 - Outputs graphs in .svg file format, which can subsequently be viewed via browser
 
-Running the Program (Python 3):
-1. Clone this repository
-2. Navigate to project directory using terminal (or other CLI)
-3. Install necessary python modules (if needed) by using terminal command: pip3 install -r requirements.txt
-4. Run the program using the terminal command: python3 NY_Times_Covid_Data.py
+## Installation
+```
+$ git clone https://github.com/RichardVN/New-York-Times-COVID-Data-Visualization.git
+$ cd NY_Times_Covid
+$ python3 -m venv myenv
+$ source myenv/bin/activate
+$ pip3 install -r requirements.txt
+$ python3 NY_Times_Covid_Data.py
+```
