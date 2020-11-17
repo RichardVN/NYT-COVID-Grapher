@@ -11,8 +11,8 @@ https://github.com/nytimes/covid-19-data
 
 ## Installation
 ```
-$ git clone https://github.com/RichardVN/NYT-COVID-Grapher.git
-$ cd NY_Times_Covid
+$ git clone https://github.com/RichardVN/nyt-covid-grapher.git
+$ cd nyt-covid-grapher
 $ python3 -m venv myenv
 $ source myenv/bin/activate
 $ pip3 install -r requirements.txt
